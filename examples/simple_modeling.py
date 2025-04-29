@@ -15,11 +15,12 @@ def main():
     # Parse command line arguments
     parser = argparse.ArgumentParser(description="Domain Modeling Example")
     
+
     parser.add_argument(
-        "--file", 
-        type=str, 
-        required=True,
-        help="Path to the requirements text file"
+    "--file", 
+    type=str, 
+    default="data/requirements/ecommerce/basic_requirements.txt",
+    help="Path to the requirements text file"
     )
     
     parser.add_argument(
@@ -37,10 +38,10 @@ def main():
     )
     
     parser.add_argument(
-        "--output-dir", 
-        type=str, 
-        default="output",
-        help="Directory to save output files"
+    "--output-dir", 
+    type=str, 
+    default="data/models",
+    help="Directory to save output files"
     )
     
     parser.add_argument(
