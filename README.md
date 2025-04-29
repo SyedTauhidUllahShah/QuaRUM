@@ -1,10 +1,10 @@
 # QuaRUM
 
-A research-oriented framework for automatically extracting UML domain models from natural language requirements using Qualitative Data Analysis (QDA) and Retrieval-Augmented Generation (RAG).
+A framework for automatically extracting UML domain models from natural language requirements using Qualitative Data Analysis (QDA) and Retrieval-Augmented Generation (RAG).
 
 ## Overview
 
-QuaRUM (Qualitative Data Analysis-Based Retrieval Augmented UML Domain Model) applies qualitative data analysis techniques from grounded theory (open coding, axial coding, and selective coding) in combination with large language models to analyze requirements documents and produce coherent domain models. By integrating retrieval-augmentation, QuaRUM grounds each modeling decision in source text, enhancing accuracy and reducing hallucinations.
+QuaRUM (Qualitative Data Analysis-Based Retrieval Augmented UML Domain Model) implements the three-phase coding process from grounded theory (open coding, axial coding, and selective coding) with large language models to analyze requirements documents. The framework uses retrieval augmentation to ground each modeling decision in source text, improving accuracy and reducing hallucinations.
 
 The framework extracts:
 - Classes, interfaces, and enumerations
@@ -14,20 +14,19 @@ The framework extracts:
 
 ## Features
 
-- **Research-Oriented**: Modular design, instrumentation for metrics, extensible architecture
-- **Evidence-Grounded**: Uses RAG to ensure every modeling decision is backed by source text
-- **Qualitative Analysis**: Implements the complete three-phase QDA coding process
-- **High Accuracy**: Achieves F1-scores between 0.85-0.98 and Cohen's κ up to 0.92
-- **Rich Outputs**: Generates PlantUML diagrams and detailed traceability reports
-- **Economically Viable**: Demonstrates 218% ROI for initial use, increasing to 1,131% for repeated deployments
-- **Customizable**: Configurable settings for adapting to different domains
+- Implements QDA coding process (open, axial, and selective coding)
+- Uses RAG to ground modeling decisions in source text
+- Achieves F1-scores between 0.85-0.98 and Cohen's κ up to 0.92
+- Provides 218% ROI for initial use, increasing to 1,131% for subsequent uses
+- Generates PlantUML diagrams and traceability reports
+- Reduces manual effort while improving consistency
 
 ## Installation
 
 ```bash
 # Clone the repository
-git clone https://github.com/example/quarum.git
-cd quarum
+git clone https://github.com/SyedTauhidUllahShah/QuaRUM.git
+cd QuaRUM
 
 # Install the package
 pip install -e .
@@ -91,9 +90,9 @@ python examples/simple_modeling.py --file requirements.txt --domain "E-commerce 
 
 ## Implementation Details
 
-QuaRUM is implemented in Python using:
+QuaRUM uses:
 - LangChain for orchestration
-- OpenAI (specifically GPT-4o-mini) for entity extraction and relationship analysis
+- OpenAI (GPT-4o-mini) for entity extraction and relationship analysis
 - FAISS for vector storage and similarity search
 - RecursiveCharacterTextSplitter for document segmentation
 - OpenAIEmbeddings for semantic embedding
@@ -131,22 +130,31 @@ settings.set("document", "chunk_size", 1000)
 settings.set("document", "chunk_overlap", 200)
 ```
 
-## Research Results
+## Evaluation Results
 
 QuaRUM has been evaluated on three case studies:
 - Library Management System (LMS)
 - Personalized Learning Platform (PLP)
 - Smart Home IoT Control Hub (SMIoT)
 
-Performance metrics show:
+Performance metrics:
 - Entity extraction: F1-scores of 0.90-0.95, Cohen's κ of 0.86-0.92
 - Relationship identification: F1-scores of 0.87-0.92, Cohen's κ of 0.83-0.89
 - Overall model quality: F1-scores of 0.89-0.94, Cohen's κ of 0.85-0.90
 
-Our economic analysis demonstrates:
+Economic analysis:
 - First project ROI: 218%
 - Subsequent project ROI: 1,131%
 - Significant reduction in modeling errors compared to manual QDA
+
+## Citation
+
+If you use QuaRUM in your work, please cite our paper:
+
+```
+Shah, S.T.U., Hussein, M., Barcomb, A., & Moshirpour, M. (2025). 
+QuaRUM: Qualitative Data Analysis-Based Retrieval Augmented UML Domain Model from Requirements Documents.
+```
 
 ## License
 
