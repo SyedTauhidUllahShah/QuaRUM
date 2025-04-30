@@ -10,10 +10,10 @@ import logging
 from typing import Dict, List, Set, Any, Optional, Tuple
 from difflib import SequenceMatcher
 
-from domain_modeler.core.code_system import CodeSystem
-from domain_modeler.core.code import Code
-from domain_modeler.core.relationship import CodeRelationship
-from domain_modeler.core.enums import CSLRelationshipType
+from quarum.core.code_system import CodeSystem
+from quarum.core.code import Code
+from quarum.core.relationship import CodeRelationship
+from quarum.core.enums import CSLRelationshipType
 
 logger = logging.getLogger(__name__)
 

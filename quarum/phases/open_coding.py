@@ -11,9 +11,9 @@ from langchain.docstore.document import Document
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 
-from domain_modeler.core.code import Code
-from domain_modeler.phases.phase_utils import BasePhase, PhaseContext, PhaseResult
-from domain_modeler.nlp.prompt_builder import PromptBuilder
+from quarum.core.code import Code
+from quarum.phases.phase_utils import BasePhase, PhaseContext, PhaseResult
+from quarum.nlp.prompt_builder import PromptBuilder
 
 
 class OpenCodingPhase(BasePhase):

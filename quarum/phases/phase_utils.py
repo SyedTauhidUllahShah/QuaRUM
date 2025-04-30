@@ -12,8 +12,8 @@ import re
 import json
 from langchain.docstore.document import Document
 
-from domain_modeler.core.code_system import CodeSystem
-from domain_modeler.nlp.embeddings import VectorEmbeddings
+from quarum.core.code_system import CodeSystem
+from quarum.nlp.embeddings import VectorEmbeddings
 
 
 @dataclass

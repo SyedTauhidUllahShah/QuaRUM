@@ -8,8 +8,8 @@ traceability reports that link domain model elements to their sources.
 import time
 from typing import Dict, List, Any, Optional, Callable, TextIO
 
-from domain_modeler.core.code_system import CodeSystem
-from domain_modeler.core.enums import CSLRelationshipType
+from quarum.core.code_system import CodeSystem
+from quarum.core.enums import CSLRelationshipType
 
 
 class ReportGenerator:

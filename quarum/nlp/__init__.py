@@ -5,9 +5,9 @@ This package contains components for text processing, embedding,
 and semantic analysis used in the domain modeling process.
 """
 
-from domain_modeler.nlp.embeddings import VectorEmbeddings
-from domain_modeler.nlp.chunking import TextChunker
-from domain_modeler.nlp.prompt_builder import PromptBuilder
+from quarum.nlp.embeddings import VectorEmbeddings
+from quarum.nlp.chunking import TextChunker
+from quarum.nlp.prompt_builder import PromptBuilder
 
 __all__ = [
     'VectorEmbeddings',

@@ -6,10 +6,10 @@ for representing domain models, including code elements and their
 relationships.
 """
 
-from domain_modeler.core.enums import CSLRelationshipType
-from domain_modeler.core.code import Code
-from domain_modeler.core.relationship import CodeRelationship
-from domain_modeler.core.code_system import CodeSystem
+from quarum.core.enums import CSLRelationshipType
+from quarum.core.code import Code
+from quarum.core.relationship import CodeRelationship
+from quarum.core.code_system import CodeSystem
 
 __all__ = [
     'CSLRelationshipType',

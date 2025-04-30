@@ -1,4 +1,4 @@
-# You could create a new file: domain_modeler/utils/data_loader.py
+# You could create a new file: quarum/utils/data_loader.py
 """
 Dataset loading utilities for domain modeling.
 """

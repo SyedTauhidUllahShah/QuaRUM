@@ -12,10 +12,10 @@ These phases are based on Grounded Theory methodology adapted for
 domain modeling with natural language processing techniques.
 """
 
-from domain_modeler.phases.phase_utils import PhaseContext, PhaseResult
-from domain_modeler.phases.open_coding import OpenCodingPhase
-from domain_modeler.phases.axial_coding import AxialCodingPhase
-from domain_modeler.phases.selective_coding import SelectiveCodingPhase
+from quarum.phases.phase_utils import PhaseContext, PhaseResult
+from quarum.phases.open_coding import OpenCodingPhase
+from quarum.phases.axial_coding import AxialCodingPhase
+from quarum.phases.selective_coding import SelectiveCodingPhase
 
 __all__ = [
     'PhaseContext',

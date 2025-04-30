@@ -12,11 +12,11 @@ from difflib import SequenceMatcher
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 
-from domain_modeler.core.code import Code
-from domain_modeler.core.relationship import CodeRelationship
-from domain_modeler.core.enums import CSLRelationshipType
-from domain_modeler.phases.phase_utils import BasePhase, PhaseContext, PhaseResult
-from domain_modeler.nlp.prompt_builder import PromptBuilder
+from quarum.core.code import Code
+from quarum.core.relationship import CodeRelationship
+from quarum.core.enums import CSLRelationshipType
+from quarum.phases.phase_utils import BasePhase, PhaseContext, PhaseResult
+from quarum.nlp.prompt_builder import PromptBuilder
 
 
 class SelectiveCodingPhase(BasePhase):

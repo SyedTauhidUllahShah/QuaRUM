@@ -183,7 +183,7 @@ class LLMClient:
         Returns:
             Extracted JSON object or None if extraction failed
         """
-        from domain_modeler.utils.json_parsing import JSONExtractor
+        from quarum.utils.json_parsing import JSONExtractor
         
         # Call LLM
         response = self.call(prompt, system_prompt)

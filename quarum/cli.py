@@ -8,7 +8,7 @@ files and generate UML models.
 
 import os
 import argparse
-from domain_modeler.pipelines.domain_modeling import DomainModelingPipeline
+from quarum.pipelines.domain_modeling import DomainModelingPipeline
 
 def main():
     """Main entry point for the domain modeling command-line interface."""

@@ -123,8 +123,8 @@ class Settings:
     
     def _load_from_env(self) -> None:
         """Load settings from environment variables."""
-        # Look for environment variables with prefix DOMAIN_MODELER_
-        prefix = "DOMAIN_MODELER_"
+        # Look for environment variables with prefix QUARUM_
+        prefix = "QUARUM_"
         
         for key, value in os.environ.items():
             if key.startswith(prefix):

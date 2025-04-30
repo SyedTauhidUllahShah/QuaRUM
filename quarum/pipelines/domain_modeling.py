@@ -13,19 +13,19 @@ from typing import Dict, List, Any, Optional, Tuple
 
 from langchain.docstore.document import Document
 
-from domain_modeler.pipelines.base_pipeline import Pipeline, PipelineResult
-from domain_modeler.phases.phase_utils import PhaseContext
-from domain_modeler.phases.open_coding import OpenCodingPhase
-from domain_modeler.phases.axial_coding import AxialCodingPhase
-from domain_modeler.phases.selective_coding import SelectiveCodingPhase
-from domain_modeler.generators.plantuml import PlantUMLGenerator
-from domain_modeler.generators.report import ReportGenerator
-from domain_modeler.core.code_system import CodeSystem
-from domain_modeler.nlp.embeddings import VectorEmbeddings
-from domain_modeler.nlp.chunking import TextChunker
-from domain_modeler.utils.llm_client import LLMClient
-from domain_modeler.utils.validation import ModelValidator
-from domain_modeler.config.settings import Settings
+from quarum.pipelines.base_pipeline import Pipeline, PipelineResult
+from quarum.phases.phase_utils import PhaseContext
+from quarum.phases.open_coding import OpenCodingPhase
+from quarum.phases.axial_coding import AxialCodingPhase
+from quarum.phases.selective_coding import SelectiveCodingPhase
+from quarum.generators.plantuml import PlantUMLGenerator
+from quarum.generators.report import ReportGenerator
+from quarum.core.code_system import CodeSystem
+from quarum.nlp.embeddings import VectorEmbeddings
+from quarum.nlp.chunking import TextChunker
+from quarum.utils.llm_client import LLMClient
+from quarum.utils.validation import ModelValidator
+from quarum.config.settings import Settings
 
 logger = logging.getLogger(__name__)
 

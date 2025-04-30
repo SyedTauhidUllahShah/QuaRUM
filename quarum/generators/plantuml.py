@@ -9,9 +9,9 @@ import re
 import time
 from typing import Dict, List, Any, Optional
 
-from domain_modeler.core.code_system import CodeSystem
-from domain_modeler.core.code import Code
-from domain_modeler.core.enums import CSLRelationshipType
+from quarum.core.code_system import CodeSystem
+from quarum.core.code import Code
+from quarum.core.enums import CSLRelationshipType
 
 
 class PlantUMLGenerator:

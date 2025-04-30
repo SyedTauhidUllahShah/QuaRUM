@@ -6,7 +6,7 @@ relationships between code elements in the domain model.
 """
 
 from typing import Dict, List, Optional
-from domain_modeler.core.enums import CSLRelationshipType
+from quarum.core.enums import CSLRelationshipType
 
 class CodeRelationship:
     """
