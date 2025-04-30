@@ -6,7 +6,10 @@ A framework for automatically extracting UML domain models from natural language
 
 QuaRUM (Qualitative Data Analysis-Based Retrieval Augmented UML Domain Model) implements the three-phase coding process from grounded theory (open coding, axial coding, and selective coding) with large language models to analyze requirements documents. The framework uses retrieval augmentation to ground each modeling decision in source text, improving accuracy and reducing hallucinations.
 
+![Framework Overview Diagram](media/framework.png)
+
 The framework extracts:
+
 - Classes, interfaces, and enumerations
 - Attributes and methods
 - Relationships and hierarchies
@@ -91,6 +94,7 @@ python examples/simple_modeling.py --file requirements.txt --domain "E-commerce 
 ## Implementation Details
 
 QuaRUM uses:
+
 - LangChain for orchestration
 - OpenAI (GPT-4o-mini) for entity extraction and relationship analysis
 - FAISS for vector storage and similarity search
@@ -100,7 +104,7 @@ QuaRUM uses:
 
 ## Dataset Organization
 
-```
+```txt
 quarum/
 ├── data/                        # Data directory (for datasets)
 │   ├── requirements/            # Raw input requirements documents
@@ -133,16 +137,21 @@ settings.set("document", "chunk_overlap", 200)
 ## Evaluation Results
 
 QuaRUM has been evaluated on three case studies:
+
 - Library Management System (LMS)
 - Personalized Learning Platform (PLP)
 - Smart Home IoT Control Hub (SMIoT)
 
-Performance metrics:
-- Entity extraction: F1-scores of 0.90-0.95, Cohen's κ of 0.86-0.92
-- Relationship identification: F1-scores of 0.87-0.92, Cohen's κ of 0.83-0.89
-- Overall model quality: F1-scores of 0.89-0.94, Cohen's κ of 0.85-0.90
+### Performance Metrics
 
-Economic analysis:
+| Task                   | F1-Score Range | Cohen's κ Range |
+|------------------------|----------------|----------------|
+| Entity extraction      | 0.90-0.95      | 0.86-0.92      |
+| Relationship identification | 0.87-0.92    | 0.83-0.89    |
+| Overall model quality  | 0.89-0.94      | 0.85-0.90      |
+
+### Economic analysis
+
 - First project ROI: 218%
 - Subsequent project ROI: 1,131%
 - Significant reduction in modeling errors compared to manual QDA
@@ -151,11 +160,10 @@ Economic analysis:
 
 If you use QuaRUM in your work, please cite our paper:
 
+```bibtex
+@article{shah2025quarum,
+  title={QuaRUM: Qualitative Data Analysis-Based Retrieval Augmented UML Domain Model from Requirements Documents},
+  author={Shah, S.T.U. and Hussein, M. and Barcomb, A. and Moshirpour, M.},
+  year={2025}
+}
 ```
-Shah, S.T.U., Hussein, M., Barcomb, A., & Moshirpour, M. (2025). 
-QuaRUM: Qualitative Data Analysis-Based Retrieval Augmented UML Domain Model from Requirements Documents.
-```
-
-## License
-
-MIT License
