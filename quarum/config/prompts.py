@@ -7,20 +7,21 @@ supporting customization.
 """
 
 import os
-from typing import Dict, Any, Optional
+from typing import Any, Optional
+
 
 class PromptTemplates:
     """
     Manages prompt templates for domain modeling.
-    
+
     This class provides centralized storage and access to prompt
     templates used in the domain modeling process, with support
     for customization and overrides.
     """
-    
+
     # System prompt
-    DEFAULT_SYSTEM_PROMPT = """You are a qualitative data analysis-based expert in UML and domain-driven design.
-Your task is to extract domain models from natural language requirements.
+    DEFAULT_SYSTEM_PROMPT = """You are a qualitative data analysis-based expert in UML and
+domain-driven design. Your task is to extract domain models from natural language requirements.
 Focus on creating clean, accurate, and useful class diagrams that properly represent the domain.
 Identify the most important classes, attributes, operations, and relationships.
 Ensure all JSON outputs are valid, with proper syntax (e.g., commas, brackets).
@@ -43,7 +44,6 @@ For "attributes", use: {{ "Entity": [{{ "name": "attrName", "type": "String", "v
 For "operations", use: {{ "Entity": [{{ "name": "opName", "signature": "(param: Type): ReturnType", "visibility": "+|-|#" }}] }}
 For "enumerations", use: {{ "EnumName": ["VALUE1", "VALUE2"] }}
 Ensure JSON is valid and focuses on business domain concepts.""",
-
         "entity_extraction": """
 # Domain Entity Extraction for {domain_name}
 Analyze this text segment and extract key domain entities for a UML class diagram:
@@ -78,7 +78,6 @@ Return JSON:
 ]
 }}
 For enumerations, include "enumValues": ["VALUE1", "VALUE2"] if listed in text.""",
-
         "relationship_analysis": """
 # UML Relationship Analysis
 ## Class Pairs:
@@ -118,7 +117,6 @@ Output JSON:
     }}
 ]
 }}""",
-
         "interface_identification": """
 # Interface and Abstract Class Identification
 ## Current Classes:
@@ -141,7 +139,6 @@ DO NOT infer or guess - only mark as interface/abstract if clearly indicated.
     }}
 ]
 }}""",
-
         "class_enrichment": """
 # Enrich UML Class Features for {domain_name}
 ## Classes to Enrich:
@@ -163,28 +160,28 @@ Output JSON:
     "operations": [{{"name": "opName", "signature": "(param: Type): ReturnType", "visibility": "+|-|#"}}]
     }}
 ]
-}}"""
+}}""",
     }
-    
+
     def __init__(self, custom_templates_path: Optional[str] = None):
         """
         Initialize prompt templates.
-        
+
         Args:
             custom_templates_path: Optional path to a directory with custom templates
         """
         # Start with default templates
         self.system_prompt = self.DEFAULT_SYSTEM_PROMPT
         self.templates = self.DEFAULT_TEMPLATES.copy()
-        
+
         # Load custom templates if provided
         if custom_templates_path and os.path.isdir(custom_templates_path):
             self._load_custom_templates(custom_templates_path)
-    
+
     def _load_custom_templates(self, templates_path: str) -> None:
         """
         Load custom templates from files.
-        
+
         Args:
             templates_path: Path to directory with template files
         """
@@ -193,147 +190,152 @@ Output JSON:
         if os.path.isfile(system_prompt_path):
             with open(system_prompt_path, 'r', encoding='utf-8') as f:
                 self.system_prompt = f.read()
-        
+
         # Look for task-specific templates
-        for task in self.templates.keys():
+        for task in self.templates:
             template_path = os.path.join(templates_path, f"{task}.txt")
             if os.path.isfile(template_path):
                 with open(template_path, 'r', encoding='utf-8') as f:
                     self.templates[task] = f.read()
-    
+
     def get_system_prompt(self) -> str:
         """
         Get the system prompt.
-        
+
         Returns:
             System prompt text
         """
         return self.system_prompt
-    
+
     def set_system_prompt(self, prompt: str) -> None:
         """
         Set the system prompt.
-        
+
         Args:
             prompt: New system prompt text
         """
         self.system_prompt = prompt
-    
+
     def get_template(self, task: str) -> str:
         """
         Get a prompt template by task name.
-        
+
         Args:
             task: Task name
-            
+
         Returns:
             Template text
-            
+
         Raises:
             ValueError: If task is not found
         """
         if task not in self.templates:
             raise ValueError(f"Unknown task template: {task}")
-            
+
         return self.templates[task]
-    
+
     def set_template(self, task: str, template: str) -> None:
         """
         Set a prompt template.
-        
+
         Args:
             task: Task name
             template: Template text
         """
         self.templates[task] = template
-    
+
     def add_template(self, task: str, template: str) -> None:
         """
         Add a new prompt template.
-        
+
         Args:
             task: Task name
             template: Template text
         """
         self.templates[task] = template
-    
+
     def format_template(self, task: str, **kwargs: Any) -> str:
         """
         Format a template with parameters.
-        
+
         Args:
             task: Task name
             **kwargs: Parameters to inject
-            
+
         Returns:
             Formatted template
-            
+
         Raises:
             ValueError: If task is not found
         """
         template = self.get_template(task)
-        
+
         try:
             return template.format(**kwargs)
         except KeyError as e:
-            missing_key = str(e).strip("'")
-            raise ValueError(f"Missing parameter for template '{task}': {missing_key}")
-    
+            raise ValueError(
+                f"""Missing parameter for template '{task}': {str(e).strip("'")}"""
+            ) from e
+
     def get_all_task_names(self) -> list:
         """
         Get all available task names.
-        
+
         Returns:
             List of task names
         """
         return list(self.templates.keys())
-    
+
     def save_to_directory(self, directory_path: str) -> bool:
         """
         Save all templates to a directory.
-        
+
         Args:
             directory_path: Path to save templates
-            
+
         Returns:
             True if successful, False otherwise
         """
         try:
             # Create directory if it doesn't exist
             os.makedirs(directory_path, exist_ok=True)
-            
+
             # Save system prompt
-            with open(os.path.join(directory_path, "system_prompt.txt"), 'w', encoding='utf-8') as f:
+            with open(
+                os.path.join(directory_path, "system_prompt.txt"), 'w', encoding='utf-8'
+            ) as f:
                 f.write(self.system_prompt)
-            
+
             # Save task-specific templates
             for task, template in self.templates.items():
-                with open(os.path.join(directory_path, f"{task}.txt"), 'w', encoding='utf-8') as f:
+                with open(
+                    os.path.join(directory_path, f"{task}.txt"), 'w', encoding='utf-8'
+                ) as f:
                     f.write(template)
-                    
+
             return True
-            
+
         except Exception as e:
             print(f"Error saving templates: {str(e)}")
             return False
-    
+
     def reset(self) -> None:
         """Reset all templates to defaults."""
         self.system_prompt = self.DEFAULT_SYSTEM_PROMPT
         self.templates = self.DEFAULT_TEMPLATES.copy()
-    
+
     def reset_template(self, task: str) -> bool:
         """
         Reset a specific template to default.
-        
+
         Args:
             task: Task name
-            
+
         Returns:
             True if successful, False if task not found
         """
         if task not in self.DEFAULT_TEMPLATES:
             return False
-            
+
         self.templates[task] = self.DEFAULT_TEMPLATES[task]
         return True

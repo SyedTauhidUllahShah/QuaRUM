@@ -839,7 +839,7 @@ class SelectiveCodingPhase(BasePhase):
                 
                 rel_id = f"rel_{len(context.code_system.relationships)+1}"
                 new_rel = CodeRelationship(
-                    id=rel_id,
+                    relationship_id=rel_id,
                     source_code_id=implementer_id,
                     target_code_id=interface.id,
                     relationship_type=CSLRelationshipType.IMPLEMENTATION,
@@ -911,7 +911,7 @@ class SelectiveCodingPhase(BasePhase):
                 
                 rel_id = f"rel_{len(context.code_system.relationships)+1}"
                 new_rel = CodeRelationship(
-                    id=rel_id,
+                    relationship_id=rel_id,
                     source_code_id=cid,
                     target_code_id=best_parent_id,
                     relationship_type=CSLRelationshipType.IS_A,

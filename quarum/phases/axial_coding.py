@@ -349,7 +349,7 @@ class AxialCodingPhase(BasePhase):
                 # Create relationship object
                 relationship_id = f"rel_{len(context.code_system.relationships)+1}"
                 new_rel = CodeRelationship(
-                    id=relationship_id,
+                    relationship_id=relationship_id,
                     source_code_id=source_id,
                     target_code_id=target_id,
                     relationship_type=relationship_type,
