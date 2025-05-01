@@ -3,10 +3,10 @@ Tests for core domain modeling components.
 """
 
 import unittest
-from domain_modeler.core.code import Code
-from domain_modeler.core.relationship import CodeRelationship
-from domain_modeler.core.code_system import CodeSystem
-from domain_modeler.core.enums import CSLRelationshipType
+from quarum.core.code import Code
+from quarum.core.relationship import CodeRelationship
+from quarum.core.code_system import CodeSystem
+from quarum.core.enums import CSLRelationshipType
 
 class TestCode(unittest.TestCase):
     """Tests for the Code class."""

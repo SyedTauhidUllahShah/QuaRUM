@@ -1,14 +1,14 @@
 """
 Simple domain modeling example.
 
-This example demonstrates how to use the domain_modeler package
+This example demonstrates how to use the quarum package
 to extract a domain model from requirements text.
 """
 
 import os
 import argparse
-from domain_modeler.pipelines.domain_modeling import DomainModelingPipeline
-from domain_modeler.config.settings import Settings
+from quarum.pipelines.domain_modeling import DomainModelingPipeline
+from quarum.config.settings import Settings
 
 def main():
     """Run the example."""
