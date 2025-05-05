@@ -221,7 +221,7 @@ class OpenCodingPhase(BasePhase):
             # Create a new code object
             new_id = f"code_{len(context.code_system.codes)+1}"
             code_obj = Code(
-                id=new_id,
+                code_id=new_id,
                 name=entity_name,
                 definition=f"Core entity in {context.domain_name} domain",
                 is_recommendation=True
@@ -271,7 +271,7 @@ class OpenCodingPhase(BasePhase):
             # Create new code for core entity
             new_id = f"code_{len(context.code_system.codes)+1}"
             new_code = Code(
-                id=new_id,
+                code_id=new_id,
                 name=entity_name,
                 definition=f"Core entity in {context.domain_name} domain",
                 is_recommendation=True

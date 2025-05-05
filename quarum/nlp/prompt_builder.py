@@ -5,22 +5,22 @@ This module provides tools for constructing effective prompts
 for language models used in the domain modeling process.
 """
 
-from typing import Dict, List, Any, Optional
-import re
+from typing import Any, Optional
+
 
 class PromptBuilder:
     """
     Builds and manages prompts for LLM interactions.
-    
+
     This class provides methods to create structured prompts
     for various domain modeling tasks, with support for templates,
     context injection, and domain-specific customization.
     """
-    
+
     def __init__(self, domain_name: str, system_prompt: Optional[str] = None):
         """
         Initialize the prompt builder.
-        
+
         Args:
             domain_name: Name of the domain being modeled
             system_prompt: Optional base system prompt
@@ -28,11 +28,11 @@ class PromptBuilder:
         self.domain_name = domain_name
         self.system_prompt = system_prompt or self._default_system_prompt()
         self.templates = self._initialize_templates()
-    
+
     def _default_system_prompt(self) -> str:
         """
         Provide the default system prompt for domain modeling.
-        
+
         Returns:
             Default system prompt text
         """
@@ -42,13 +42,13 @@ Focus on creating clean, accurate, and useful class diagrams that properly repre
 Identify the most important classes, attributes, operations, and relationships.
 Ensure all JSON outputs are valid, with proper syntax (e.g., commas, brackets).
 Use UML conventions for attributes and methods with visibility (+, -, #) and proper types."""
-    
-    def _initialize_templates(self) -> Dict[str, str]:
+
+    def _initialize_templates(self) -> dict[str, str]:
         """
         Initialize the standard prompt templates.
-        
+
         Returns:
-            Dictionary of prompt templates by task
+            dictionary of prompt templates by task
         """
         return {
             "domain_analysis": """Analyze this domain in depth:
@@ -66,7 +66,6 @@ For "attributes", use: {{ "Entity": [{{ "name": "attrName", "type": "String", "v
 For "operations", use: {{ "Entity": [{{ "name": "opName", "signature": "(param: Type): ReturnType", "visibility": "+|-|#" }}] }}
 For "enumerations", use: {{ "EnumName": ["VALUE1", "VALUE2"] }}
 Ensure JSON is valid and focuses on business domain concepts.""",
-
             "entity_extraction": """
 # Domain Entity Extraction for {domain_name}
 Analyze this text segment and extract key domain entities for a UML class diagram:
@@ -101,7 +100,6 @@ Return JSON:
 ]
 }}
 For enumerations, include "enumValues": ["VALUE1", "VALUE2"] if listed in text.""",
-
             "relationship_analysis": """
 # UML Relationship Analysis
 ## Class Pairs:
@@ -141,7 +139,6 @@ Output JSON:
     }}
 ]
 }}""",
-
             "interface_identification": """
 # Interface and Abstract Class Identification
 ## Current Classes:
@@ -164,7 +161,6 @@ DO NOT infer or guess - only mark as interface/abstract if clearly indicated.
     }}
 ]
 }}""",
-
             "class_enrichment": """
 # Enrich UML Class Features for {domain_name}
 ## Classes to Enrich:
@@ -186,81 +182,83 @@ Output JSON:
     "operations": [{{"name": "opName", "signature": "(param: Type): ReturnType", "visibility": "+|-|#"}}]
     }}
 ]
-}}"""
+}}""",
         }
-    
+
     def build_prompt(self, task: str, **kwargs) -> str:
         """
         Build a prompt for a specific task with parameters.
-        
+
         Args:
             task: The task template to use
             **kwargs: Parameters to inject into the template
-            
+
         Returns:
             Formatted prompt text
         """
         if task not in self.templates:
             raise ValueError(f"Unknown task template: {task}")
-        
+
         # Always include domain name
         kwargs["domain_name"] = self.domain_name
-        
+
         # Format template with provided arguments
         template = self.templates[task]
         return template.format(**kwargs)
-    
+
     def add_context_to_prompt(self, prompt: str, context: str) -> str:
         """
         Add additional context to a prompt.
-        
+
         Args:
             prompt: The base prompt
             context: Context to append
-            
+
         Returns:
             Prompt with added context
         """
         return f"{prompt}\n\nRelevant domain context:\n{context}"
-    
+
     def add_template(self, name: str, template: str) -> None:
         """
         Add a new prompt template.
-        
+
         Args:
             name: Name of the template
             template: Template text with {param} placeholders
         """
         self.templates[name] = template
-    
+
     def escape_braces_for_format(self, text: str) -> str:
         """
         Escape braces for string formatting.
-        
+
         Args:
             text: Text that may contain braces
-            
+
         Returns:
             Text with braces escaped
         """
         return text.replace("{", "{{").replace("}", "}}")
-    
-    def add_examples_to_prompt(self, prompt: str, examples: List[Dict[str, Any]]) -> str:
+
+    def add_examples_to_prompt(
+        self, prompt: str, examples: list[dict[str, Any]]
+    ) -> str:
         """
         Add few-shot examples to a prompt.
-        
+
         Args:
             prompt: Base prompt
-            examples: List of example dictionaries
-            
+            examples: list of example dictionaries
+
         Returns:
             Prompt with examples
         """
         example_text = "\n\n## Examples:\n"
-        
+
         for i, example in enumerate(examples):
             example_text += f"\nExample {i+1}:\n"
             example_text += f"Input: {example.get('input', '')}\n"
             example_text += f"Output: {example.get('output', '')}\n"
-        
+
         return prompt + example_text

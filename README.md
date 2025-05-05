@@ -26,14 +26,27 @@ The framework extracts:
 
 ## Installation
 
-```bash
-# Clone the repository
-git clone https://github.com/SyedTauhidUllahShah/QuaRUM.git
-cd QuaRUM
+1. Clone repo
 
-# Install the package
-pip install -e .
-```
+   ```bash
+   git clone https://github.com/SyedTauhidUllahShah/QuaRUM.git
+   cd QuaRUM
+   ```
+
+2. Install dependencies
+   - Install the package (local bin file)
+
+     ```bash
+     pip install -e .
+     ```
+
+     or
+
+   - Install deps to environment
+
+     ```bash
+     pip install -r requirements.txt
+     ```
 
 ## Requirements
 

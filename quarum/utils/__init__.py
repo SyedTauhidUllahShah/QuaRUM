@@ -9,8 +9,4 @@ from quarum.utils.llm_client import LLMClient
 from quarum.utils.validation import ModelValidator
 from quarum.utils.json_parsing import JSONExtractor
 
-__all__ = [
-    'LLMClient',
-    'ModelValidator',
-    'JSONExtractor'
-]
+__all__ = ['LLMClient', 'ModelValidator', 'JSONExtractor']

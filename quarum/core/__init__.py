@@ -11,9 +11,4 @@ from quarum.core.code import Code
 from quarum.core.relationship import CodeRelationship
 from quarum.core.code_system import CodeSystem
 
-__all__ = [
-    'CSLRelationshipType',
-    'Code',
-    'CodeRelationship',
-    'CodeSystem'
-]
+__all__ = ['CSLRelationshipType', 'Code', 'CodeRelationship', 'CodeSystem']
