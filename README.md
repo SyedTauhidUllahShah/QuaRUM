@@ -1,4 +1,4 @@
-# QuaRUM
+# [QuaRUM]([https://doi.org/10.5281/zenodo.1414117](https://link.springer.com/article/10.1007/s10515-025-00587-5))
 
 **QDA-based Retrieval-Augmented UML Domain Model generation from requirements documents.**
 
