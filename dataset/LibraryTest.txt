@@ -1,0 +1,14 @@
+Library Management System - Test Requirements
+Version 1.0
+
+1. Patron Management
+The library system must support multiple patron types including students, faculty, and community members. Each patron can borrow up to 10 books simultaneously. Each patron is assigned a unique library card number. Patrons must be able to place holds on books that are currently checked out. Some sections refer to a patron as a LibraryUser; treat this as the same concept as Patron.
+
+2. Book Management
+The system shall maintain a catalog of books, where each book has a title, ISBN, author, and publication year. Each book record tracks the number of available copies. Checked-out books have a due date and may be renewed once.
+
+3. Catalog Management
+The library shall maintain a catalog that organizes all books available for borrowing. The catalog must support searching books by title, author, and ISBN.
+
+4. Loan Management
+The system shall record each loan with a loan date, due date, and return date. A patron may renew a loan once if no hold exists on the book. The system shall generate overdue notices for loans that exceed the due date.

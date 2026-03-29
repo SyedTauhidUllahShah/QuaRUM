@@ -1,0 +1,450 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam monochrome false
+skinparam shadowing false
+hide circle
+
+title Iot
+
+package "Actors" {
+  class user <<Actor>> {
+    +personalPreferences : String
+    +quiet_hours : DateTime
+    +priorityLevels : String
+    --
+    +configurePersonalPreferences() : void
+    +configurePerPriorityRoutingRules() : void
+    +defineQuietHours() : void
+  }
+
+  class Child <<Actor>> {
+    +rooms : Room
+    +floors : Floor
+  }
+
+}
+
+package "Enumerations" {
+  enum Operator {
+    +operator : String
+    --
+    +fire() : void
+  }
+
+  enum Priority {
+    +priorityLevel : String
+    +deliveryChannels : DeliveryChannel
+    +quiet_hours : String
+  }
+
+}
+
+package "Entities" {
+  class deviceManagement {
+    +room : Room
+    +manufacturerName : String
+    +modelDesignation : String
+    +currentlyInstalledFirmwareVersion : String
+    +communicationProtocol : String
+    +dateItWasAddedToTheSystem : DateTime
+    +customFriendlyName : String
+    +alias : String
+    --
+    +assign(deviceId : String, name : String) : void
+  }
+
+  class EnergyManagement {
+    +energyManagementSubsystem : EnergyManagementSubsystem
+    +whole_home : Float
+    +device_level : Float
+    +real_timePricing : Float
+    +time_of_useRateSchedules : String
+    +monthlyBill : Float
+    +budgetTargets : Float
+    +grid_levelLoadReductionEvents : Integer
+    +energyConsumptionData : EnergyConsumptionData
+    +utilityApi : UtilityApi
+    +utilityDemandResponsePrograms : UtilityDemandResponseProgram
+  }
+
+  class device {
+    +consumption : Float
+    +state : String
+    +room : room
+    +operationalStatus : String
+    +manufacturerName : String
+    +modelDesignation : String
+    +currentlyInstalledFirmwareVersion : String
+    +communicationProtocolTheDeviceUses : String
+    +dateItWasAddedToTheSystem : Date
+    +customFriendlyName : String
+    +value : String
+    +powerUsage : Float
+    --
+    +trackStatus() : void
+    +exposeStatus() : void
+    +reportPowerUsage() : void
+    +trackEnergyConsumption() : void
+    +controlDevice() : void
+    +queryDeviceStatus() : void
+  }
+
+  class SmartLight {
+    +on : Boolean
+    +brightness : Integer
+    +colorTemperature : Integer
+    +colorOutput : String
+    +RGBColor : String
+  }
+
+  class light {
+    +energyConsumptionData : Float
+    --
+    +recordEnergyConsumptionData(light : light) : void
+  }
+
+  class thermostat {
+    +setpoint : Float
+    +mode : String
+    +temperature : Float
+    +humidity : Float
+    +runtime : Integer
+    +zone : zone
+    --
+    +readCurrentTemperatureAndHumidity() : void
+    +setOperatingMode(mode : String) : void
+    +followSchedule() : void
+    +reportRuntime() : void
+    +trackRuntime() : void
+    +adjustSetpoint(setpoint : Float) : void
+    +adjustMode(mode : String) : void
+    +trackCumulativeHVACRuntime() : void
+  }
+
+  class SmartLock {
+    +history : String
+    --
+    +provideKeylessEntry() : void
+  }
+
+  class lock {
+    +log : String
+  }
+
+  class code {
+    +startTime : DateTime
+    +expirationTime : DateTime
+    +single_use : Boolean
+    +code : String
+    --
+    +generateTemporaryNumericAccessCodes() : void
+    +invalidateExpiredCodes() : void
+    +revokeCode() : void
+  }
+
+  class Sensor {
+    +threshold : Float
+    +direction : String
+    +reading : Reading
+    +calibration : Boolean
+    +types : String
+    +frequency : Float
+    --
+    +fireTriggers() : void
+    +exposeCalibration() : void
+    +exposeThresholdConfiguration() : void
+    +reportAccurateReadings() : void
+    +triggerAutomationRules() : void
+  }
+
+  class appliance {
+    +powerConsumption : Float
+    --
+    +started() : void
+    +stopped() : void
+    +scheduled() : void
+    +report() : Float
+  }
+
+  class room {
+    +occupancyState : String
+    +temperature : Float
+    +humidity : Float
+    +type : String
+    +consumption : Float
+    --
+    +trackOccupancyState() : void
+    +exposeTemperature() : void
+    +exposeHumidity() : void
+    +classifyRoom() : void
+  }
+
+  class geofenceBoundary {
+    +GPSCenterCoordinate : String
+    +radius : Float
+    +homeAddress : String
+    +geofenceBoundary : String
+    --
+    +defineGeofenceBoundary() : void
+  }
+
+  class householdMember {
+    +location : String
+  }
+
+  class controller {
+    +monitor() : void
+  }
+
+  class scene {
+    +name : String
+    +brightness : Integer
+    +color : String
+    +powerState : Boolean
+    +deviceStateSettings : String
+    --
+    +activateScene() : void
+    +instantiateFromTemplate(template : template) : scene
+    +customizeDeviceStateSettings() : void
+    +saveNamedCombinations() : void
+    +recallNamedCombinations() : void
+    +instantiateScene() : void
+    +customizeScene() : void
+    +encodeScene() : void
+    +defineScene() : void
+    +applyDeviceStates() : void
+  }
+
+  class colorTemperature {
+    +currentTimeOfDay : DateTime
+    +localSunriseTime : DateTime
+    --
+    +calculateColorTemperature() : void
+    +applyColorTemperature() : void
+    +enableFeature() : void
+    +disableFeature() : void
+  }
+
+  class Zone {
+    +rooms : Integer
+    +targetTemperature : Float
+    +thermostat : thermostat
+    --
+    +controlVents() : void
+  }
+
+  class event {
+    +timestamp : DateTime
+    +eventType : String
+    +roomLocation : String
+    +triggeringDeviceReference : String
+    +severityLevel : String
+    +associatedUserIdentity : String
+  }
+
+  class Notification {
+    +channels : String
+    +priority : Priority
+    +registeredHouseholdMembers : String
+    +deliveryPreferences : String
+    +emergencyContacts : String
+    +timeWindow : DateTime
+    +quiet_hoursWindows : String
+    +timeout : Integer
+    +acknowledgement : Boolean
+    --
+    +deliverNotifications() : void
+    +dispatchNotification() : void
+    +escalateAlerts() : void
+    +configuringNotificationDelivery() : void
+    +deliverRealTimeNotifications() : void
+    +reachUsers() : void
+    +classifyNotification() : void
+    +assignNotificationPriorityLevel() : void
+    +assignNotificationPriority() : void
+    +escalateNotification() : void
+  }
+
+  class log {
+    +timestamp : DateTime
+    +eventType : String
+    +roomLocation : String
+    +triggeringDeviceReference : String
+    +severityLevel : String
+    +associatedUserIdentity : String
+    +time_boundedTemporaryAccessCodes : String
+    +entryAndExitEvents : String
+    --
+    +arm() : void
+    +disarm() : void
+  }
+
+  class trigger {
+    +fire() : void
+  }
+
+  class AutomationRule {
+    +name : String
+    +priority : Integer
+    +enabled : Boolean
+    +triggers : Trigger
+    +conditions : String
+    +actions : String
+    --
+    +executeActions() : void
+    +respondToEvent() : void
+  }
+
+  class Reading {
+    +value : Float
+  }
+
+  class Weather {
+    +temperature : Float
+    +precipitation : Float
+  }
+
+  class template {
+    +sceneTemplates : String
+  }
+
+  class Consumption {
+    +data : Float
+    --
+    +interfaceWithMeter(meter : meter) : void
+    +readData() : void
+    +provideVisibility() : void
+  }
+
+  class rate {
+    +applyUtilityRateSchedule() : void
+  }
+
+  class schedule {
+    +monetaryCost : Float
+    +monthlyBill : Float
+    +timePeriod : DateTime
+    +currentConsumptionPatterns : String
+    --
+    +calculateMonetaryCost(timePeriod : DateTime) : Float
+    +projectMonthlyBill(timePeriod : DateTime) : Float
+    +storeTimeOfUseRateSchedule() : void
+    +includeCalculatedCosts() : void
+  }
+
+  class cost {
+    +calculateCosts() : Float
+  }
+
+  class model {
+    +home : Home
+  }
+
+  class pricing {
+    +retrieveRealTimePricing() : Float
+  }
+
+  class hub {
+    +grid_levelLoadReductionEvents : Boolean
+    --
+    +participateInGridLevelLoadReductionEvents() : void
+  }
+
+  class channel {
+    +enabled : Boolean
+  }
+
+}
+
+device  --> "*"  room : installed in
+hub "*"  -->  device : connects
+lock --|> device
+user "0..*"  --> "0..*"  device : assign
+Consumption o--"*"  device : comprising
+light --|> SmartLight
+SmartLight --> colorTemperature : applied to
+SmartLight --> Consumption : record
+light ..> colorTemperature : apply
+light --> Consumption : record
+EnergyManagement  ..> "*"  SmartLight : to
+light  --> "*"  EnergyManagement : make
+EnergyManagement --> Consumption : provides visibility into
+thermostat --> schedule : follow
+schedule --|> rate
+SmartLock "0..*"  -->  code : generate
+code "*"  -->  lock : for
+code "0..*"  -->  event : associated with
+lock  --> "*"  event : associated with
+lock --> log : associated with
+code "0..*"  --> "0..*"  log : associated with
+event "0..1"  --> "*"  user : associated
+log "*"  --> "0..1"  user : log
+AutomationRule "*"  ..> "*"  Sensor : use
+trigger ..> Sensor : on
+Sensor "1..*"  -->  Reading : from
+appliance --> Consumption : report
+appliance  ..> "0..*"  hub : through
+log "*"  -->  device : triggering
+scene "0..*"  --> "0..*"  device : encode
+controller  --> "*"  SmartLight : coordinates
+controller  --> "1..*"  light : coordinates
+scene "0..*" o--"*"  light : capture
+scene "0..*"  --> "0..*"  colorTemperature : capture
+user "*"  --> "*"  scene : activate
+scene  ..> "*"  template : instantiate
+log "1..*" *-- event : log
+log  --> "*"  room : with
+log  --> "*"  trigger : with
+householdMember --> user : have
+user "0..*"  -->  Notification : reach
+user "*"  -->  code : generate
+geofenceBoundary  --> "0..*"  householdMember : track
+user "*"  --> "*"  AutomationRule : define
+user "0..4"  -->  Priority : configure
+AutomationRule "1..*"  --> "0..*"  event : respond to
+AutomationRule "1..*" *-- trigger : in
+trigger  ..> "*"  device : fire
+trigger ..> Reading : fire
+appliance --|> device
+light "1..*"  --> "1..*"  trigger : paired
+Sensor "1..*"  ..>  Operator : used
+trigger --> Operator : using
+Operator ..> Reading : using
+user --> hub : control
+user  --> "1..*"  light : save
+EnergyManagement  --> "0..*"  device : breaking down
+EnergyManagement  --> "1..*"  user : generates
+EnergyManagement ..> schedule : Using
+EnergyManagement "*"  --> "*"  cost : calculates
+EnergyManagement ..> rate : Using
+EnergyManagement ..> pricing : retrieve
+Consumption ..> schedule : Using
+Consumption ..> rate : apply
+cost ..> schedule : apply
+cost ..> model : derive
+cost "*"  ..>  rate : apply
+cost ..> Consumption : calculated from
+event  --> "1..*"  device : triggering
+user "*"  --> "*"  channel : configuring
+Notification  --> "*"  Priority : classify
+Notification "1..*"  --> "*"  channel : deliver
+Priority "1..*"  --> "1..*"  channel : used
+Notification "0..*"  --> "0..*"  householdMember : dispatch
+event "0..*"  --> "0..*"  Notification : delivering
+event  --> "*"  Priority : assign
+Notification "0..*"  --> "0..*"  device : delivering
+hub  ..> "0..*"  event : forward
+Hub *--"0..200"  Device : forms
+hub *-- deviceManagement : forms
+User "*"  --> "*"  Device : assign
+Zone o--"1..*"  Room : comprising
+SmartLight --|> Device
+Sensor "1..*"  --> "1..*"  Light : activates
+thermostat ..> Zone : through its parent zone
+Thermostat --> Zone : controlled by
+trigger ..> Weather : based on
+device  --> "*"  model : containing
+Child "0..*"  --> "0..*"  light : control
+DEVICE  --> "0..*"  ROOM : installed in
+
+@enduml

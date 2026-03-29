@@ -1,0 +1,1 @@
+from .plantuml_generator import PlantUMLGenerator
